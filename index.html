@@ -4,8 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+
+        input {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            outline: none;
+            animation: flash 0.3s infinite;
+            background: transparent;
+        }
+
+        @keyframes flash {
+            0%   { color: black; background-color: white; }
+            50%  { color: white; background-color: black; }
+            100% { color: black; background-color: white; }
+        }
+    </style>
 </head>
 <body>
-    <input type="text" value="gabe is soooo awesome">
+    <input type="text" value="gabe">
 </body>
 </html>
