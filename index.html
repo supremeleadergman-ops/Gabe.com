@@ -9,9 +9,11 @@
             margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: white;
+            gap: 40px;
         }
 
         input {
@@ -29,13 +31,31 @@
             50%  { color: white; background-color: black; }
             100% { color: black; background-color: white; }
         }
+
+        button {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 40px;
+            cursor: pointer;
+            border: 3px solid black;
+            border-radius: 8px;
+            background-color: white;
+            color: black;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <input type="text" value="gabe">
+    <button onclick="handleClick()">Click me</button>
 
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let scratchyInterval = null;
 
         function playScratchy() {
             const bufferSize = audioCtx.sampleRate * 0.1;
@@ -63,7 +83,21 @@
             source.start();
         }
 
-        setInterval(playScratchy, 100);
+        function sayIdiot() {
+            const utterance = new SpeechSynthesisUtterance("idiot");
+            utterance.pitch = 2.0;
+            utterance.rate = 1.0;
+            utterance.volume = 1.0;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function handleClick() {
+            sayIdiot();
+
+            if (!scratchyInterval) {
+                scratchyInterval = setInterval(playScratchy, 100);
+            }
+        }
     </script>
 </body>
 </html>
