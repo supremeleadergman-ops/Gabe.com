@@ -33,5 +33,37 @@
 </head>
 <body>
     <input type="text" value="gabe">
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playScratchy() {
+            const bufferSize = audioCtx.sampleRate * 0.1;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = (Math.random() * 2 - 1);
+            }
+
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = "highpass";
+            filter.frequency.value = 4000;
+
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.value = 3.0;
+
+            source.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            source.start();
+        }
+
+        setInterval(playScratchy, 100);
+    </script>
 </body>
 </html>
